@@ -9,6 +9,7 @@ module.exports = {
   findPostComments,
   findCommentById,
   insertComment,
+  findCommentsByPostId
 };
 
 function find() {
@@ -30,7 +31,7 @@ function update(id, post) {
     .where('id', Number(id))
     .update(post);
 }
-
+//returns the count of the delete item
 function remove(id) {
   return db('posts')
     .where('id', Number(id))
@@ -55,4 +56,9 @@ function insertComment(comment) {
   return db('comments')
     .insert(comment)
     .then(ids => ({ id: ids[0] }));
+}
+
+function findCommentsByPostId(postId) {
+  return db('comments')
+    .where('post_id', postId);
 }
